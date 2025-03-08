@@ -1,0 +1,27 @@
+const express= require('express');
+const dotenv= require('dotenv');
+const connectDB=require('./config/db');
+const cors= require('cors');
+const app=express();
+const session= require('express-session');
+
+//Middleware
+dotenv.config();
+app.use(express.json());
+app.use(cors({credentials: true, origin:'http://localhost:3000'}));
+app.use('/product_images',express.static('product_images'));
+
+app.use(session({
+    secret:'yourSecretKey',
+    resave:false,
+    saveUninitialized:true,
+    cookie:{secure:false}
+}));
+
+connectDB();
+
+app.use('/api/products',require('./routes/adminroutes'));
+app.use('/api/user',require('./routes/authroutes'));
+
+const port= process.env.PORT || 5000;
+app.listen(port, ()=>console.log(`Server is running on port ${port}`));

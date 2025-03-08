@@ -1,0 +1,133 @@
+/* Ensuring full-page background */
+.login-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('./imgs/login.jpg') no-repeat center center;
+    background-size: cover;
+    position: relative;
+}
+
+.register-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('./imgs/register.webp') no-repeat center center;
+    background-size: cover;
+    position: relative;
+}
+
+.login-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.register-container::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.login-box {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    background: transparent;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.301);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 10;
+}
+
+.product-card {
+    transition: transform 0.3s ease;
+    width: 300px;
+    margin: auto;
+    /* border-radius: 40px; */
+}
+
+.product-card img{
+    height: 150px;
+    object-fit: contain;
+}
+
+.hover-overlay {
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.hover-overlay .d-flex{
+    width: 100%;
+}
+
+.hover-overlay button{
+    background: transparent;
+    border: 1px solid transparent;
+    transition: all 0.3s ease-in-out;
+    padding: 5px 10px ;
+    border-radius: 5px;
+}
+
+.hover-overlay button:hover{
+    border: 1px solid gray;
+}
+
+.product-card:hover .hover-overlay {
+    opacity: 1;
+}
+
+.carousel img{
+    height: 550px;
+}
+
+.rounded-table {
+    border-radius: 10px;
+    overflow: hidden;
+}  
+
+@media (max-width: 768px){
+    .product-card{
+        max-width: 160px;
+    }
+    .product-card img{
+        height: 120px;
+    }
+
+    .hover-overlay p{
+        font-size: 12px;
+    }
+
+    .hover-overlay button{
+        font-size: 12px;
+        padding: 5px;
+    }
+
+}
+    
