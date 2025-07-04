@@ -9,7 +9,11 @@ router.post('/login', login);
 router.get('/session', (req, res) => {
   if (req.session && req.session.user && req.session.user.role) {
     console.log("User session found:", req.session.user);
-    return res.status(200).json({ role: req.session.user.role });
+    return res.status(200).json({
+        id: req.session.user.id,
+        role: req.session.user.role,
+        userName: req.session.user.userName
+    });
   } else {
     console.log("No active session found");
     return res.status(401).json({ message: 'Not authenticated' });

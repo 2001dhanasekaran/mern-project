@@ -10,6 +10,7 @@ dotenv.config();
 app.use(express.json());
 app.use(cors({credentials: true, origin: process.env.APPLICATION_UI}));
 app.use('/product_images',express.static('product_images'));
+app.set('trust proxy', 1);
 
 app.use(session({
     secret:'yourSecretKey',
