@@ -6,14 +6,14 @@ const router= express.Router();
 router.post('/register', register);
 router.post('/login', login);
 
-router.get('/session', (req,res)=>{
-    if(req.session && req.session.user){
-        console.log("User session found:",req.session.user);
-        return res.status(200).json(req.session.user);
-    }else{
-        console.log("No active session found");
-        res.status(401).json({message:'Not authenticated'})
-    }
+router.get('/session', (req, res) => {
+  if (req.session && req.session.user && req.session.user.role) {
+    console.log("User session found:", req.session.user);
+    return res.status(200).json({ role: req.session.user.role });
+  } else {
+    console.log("No active session found");
+    return res.status(401).json({ message: 'Not authenticated' });
+  }
 });
 
 //Logout route
