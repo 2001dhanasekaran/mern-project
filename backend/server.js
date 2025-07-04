@@ -14,7 +14,7 @@ app.use('/product_images',express.static('product_images'));
 app.use(session({
     secret:'yourSecretKey',
     resave:false,
-    saveUninitialized:true,
+    saveUninitialized:false,
     cookie:{
         secure:true,
         sameSite: 'none'

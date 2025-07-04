@@ -27,7 +27,7 @@ exports.login= async(req,res)=>{
         if(user.password!=password){
             return res.status(400).json({message:"Invalid email or password"});
         }
-        req.session.user={id:user._id, role:user.role};
+        req.session.user={id:user._id, role:user.role, userName:user.userName};
         return res.status(200).json({message:"Login successfull", role:user.role});
     }catch(error){
         res.status(500).json({message:error.message})
