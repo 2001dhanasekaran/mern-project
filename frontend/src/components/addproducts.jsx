@@ -21,7 +21,7 @@ const Addproduct = ({ onProductAdded, onClose, show }) => {
     formData.append('productImg', productImg);
 
     try {
-      await axios.post(`${process.env.BACKEND_URL}/api/products/add_products`, formData, {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/products/add_products`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

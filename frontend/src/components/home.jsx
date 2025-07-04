@@ -14,7 +14,7 @@ function Home() {
     const categoryRef= useRef(null);
 
     useEffect(() => {
-        axios.get(`${process.env.BACKEND_URL}/api/products`)
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/products`)
             .then(response => setProducts(response.data))
             .catch(error => console.error("Error fetching product data", error));
     }, []);

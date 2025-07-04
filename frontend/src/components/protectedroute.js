@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children, requiredRole }) => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch(`${process.env.BACKEND_URL}/api/user/session`, {
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/user/session`, {
                     credentials: "include",
                 });
 
