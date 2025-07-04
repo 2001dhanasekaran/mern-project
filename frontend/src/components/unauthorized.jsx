@@ -17,7 +17,7 @@ const Unauthorized = () => {
       </p>
       <button 
         className="btn btn-danger btn-lg mt-3 px-4"
-        onClick={() => navigate("/login")}
+        onClick={() => navigate("/")}
       >
         Take Me Home
       </button>
