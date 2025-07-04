@@ -10,13 +10,13 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const credentials = { email, password };
+        const userCredentials = { email, password };
 
         try {
             const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/user/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(credentials),
+                body: JSON.stringify(userCredentials),
                 credentials: "include",
             });
 
