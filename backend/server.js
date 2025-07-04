@@ -19,7 +19,8 @@ app.use(session({
     saveUninitialized:false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGO_URL,
-        collectionName: 'sessions'
+        collectionName: 'sessions',
+        ttl: 86400
     }),
     cookie:{
         secure:true,
