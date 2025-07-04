@@ -17,7 +17,7 @@ const Register=()=>{
         };
 
         try{
-            const response= await fetch('http://localhost:5000/api/user/register',{
+            const response= await fetch(`${process.env.BACKEND_URL}/api/user/register`,{
                 method:'POST',
                 headers:{'Content-type':'application/json'},
                 body:JSON.stringify(data)

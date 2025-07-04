@@ -11,7 +11,7 @@ export default function Admin(){
     
     const fetchProducts= async()=>{
         try{
-            const response= await axios.get("http://localhost:5000/api/products");
+            const response= await axios.get(`${process.env.BACKEND_URL}/api/products`);
             setProducts(response.data);
         }catch(error){
             setMessage({color:'danger',text:'Error fetching product'+error.message});
@@ -23,7 +23,7 @@ export default function Admin(){
     },[]);
 
     const handleLogout = async () => {
-        await fetch('http://localhost:5000/api/user/logout', {
+        await fetch(`${process.env.BACKEND_URL}/api/user/logout`, {
             method: 'POST',
             credentials: 'include'
         });
@@ -32,7 +32,7 @@ export default function Admin(){
 
     const onSave= async (id, updatedProduct)=>{
         try{
-            await axios.put(`http://localhost:5000/api/products/update_product/${id}`, updatedProduct, {
+            await axios.put(`${process.env.BACKEND_URL}/api/products/update_product/${id}`, updatedProduct, {
                 headers: {'Content-Type': 'multipart/form-data'}
             });
             
@@ -46,7 +46,7 @@ export default function Admin(){
     const handleDelete= async(id)=>{
         if(window.confirm('Are you sure want to delete this product ?')){
             try{
-                await axios.delete(`http://localhost:5000/api/products/delete_product/${id}`);
+                await axios.delete(`${process.env.BACKEND_URL}/api/products/delete_product/${id}`);
                 setProducts(products.filter((product)=>product._id !==id));
                 fetchProducts();
             }catch(error){
@@ -92,7 +92,7 @@ export default function Admin(){
                     <tbody>
                         {products.map((product)=>(
                             <tr key={product._id}>
-                                <td>{product.productImg && <img src={`http://localhost:5000${product.productImg}`} alt={product.productName} style={{ width: "50px" }} />}</td>
+                                <td>{product.productImg && <img src={`${process.env.BACKEND_URL}${product.productImg}`} alt={product.productName} style={{ width: "50px" }} />}</td>
                                 <td>{product.productName}</td>
                                 <td>{product.brand}</td>
                                 <td>Rs. {product.price}</td>

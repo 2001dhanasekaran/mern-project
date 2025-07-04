@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function Navbar() {
     const handleLogout = async () => {
-        await fetch('http://localhost:5000/api/user/logout', {
+        await fetch(`${process.env.BACKEND_URL}/api/user/logout`, {
             method: 'POST',
             credentials: 'include'
         });

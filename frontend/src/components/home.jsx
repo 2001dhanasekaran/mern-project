@@ -14,7 +14,7 @@ function Home() {
     const categoryRef= useRef(null);
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/products")
+        axios.get(`${process.env.BACKEND_URL}/api/products`)
             .then(response => setProducts(response.data))
             .catch(error => console.error("Error fetching product data", error));
     }, []);

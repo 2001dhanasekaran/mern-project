@@ -12,7 +12,7 @@ export default function Category({ category }) {
     // Fetch Products from API
     useEffect(() => {
         if (!category) return;
-        axios.get(`http://localhost:5000/api/products?category=${encodeURIComponent(category)}`)
+        axios.get(`${process.env.BACKEND_URL}/api/products?category=${encodeURIComponent(category)}`)
             .then(response => {
                 console.log("Fetched Products:", response.data);
                 const uniqueProducts = Array.from(new Map(response.data.map(product => [product._id, product])).values());
@@ -39,7 +39,7 @@ export default function Category({ category }) {
             cart.push({
                 ...product,
                 quantity: 1,
-                productImg: product.productImg.startsWith("http") ? product.productImg : `http://localhost:5000${product.productImg}`
+                productImg: product.productImg.startsWith("http") ? product.productImg : `${process.env.BACKEND_URL}${product.productImg}`
             });
         }
 
@@ -59,7 +59,7 @@ export default function Category({ category }) {
         } else {
             list.push({
                 ...product,
-                productImg: product.productImg.startsWith("http") ? product.productImg : `http://localhost:5000${product.productImg}`
+                productImg: product.productImg.startsWith("http") ? product.productImg : `${process.env.BACKEND_URL}${product.productImg}`
             });
             alert(`${product.productName} added to Wishlist`);
         }
@@ -96,7 +96,7 @@ export default function Category({ category }) {
                         <div key={product._id} className='shadow rounded-4'>
                             <div className='card product-card border-0'>
                                 <img
-                                    src={product.productImg.startsWith("http") ? product.productImg : `http://localhost:5000${product.productImg}`}
+                                    src={product.productImg.startsWith("http") ? product.productImg : `${process.env.BACKEND_URL}${product.productImg}`}
                                     className='card-img-top'
                                     alt={product.productName}
                                 />
