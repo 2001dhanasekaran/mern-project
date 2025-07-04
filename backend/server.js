@@ -15,7 +15,10 @@ app.use(session({
     secret:'yourSecretKey',
     resave:false,
     saveUninitialized:true,
-    cookie:{secure:false}
+    cookie:{
+        secure:true,
+        sameSite: 'none'
+    }
 }));
 
 connectDB();
