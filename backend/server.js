@@ -8,7 +8,7 @@ const session= require('express-session');
 //Middleware
 dotenv.config();
 app.use(express.json());
-app.use(cors({credentials: true, origin:'http://localhost:3000'}));
+app.use(cors({credentials: true, origin: process.env.APPLICATION_UI}));
 app.use('/product_images',express.static('product_images'));
 
 app.use(session({
