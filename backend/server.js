@@ -4,6 +4,7 @@ const connectDB=require('./config/db');
 const cors= require('cors');
 const app=express();
 const session= require('express-session');
+const MongoStore = require('connect-mongo');
 
 //Middleware
 dotenv.config();
@@ -16,6 +17,10 @@ app.use(session({
     secret:'yourSecretKey',
     resave:false,
     saveUninitialized:false,
+    store: MongoStore.create({
+        mongoUrl: process.env.MONGO_URL,
+        collectionName: 'sessions'
+    }),
     cookie:{
         secure:true,
         sameSite: 'none'
