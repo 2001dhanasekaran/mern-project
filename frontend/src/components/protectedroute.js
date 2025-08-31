@@ -38,7 +38,7 @@ const ProtectedRoute = ({ children, requiredRole }) => {
     if (loading) return <h5>Loading...</h5>;
 
     if (!userRole) {
-        console.log("No session found, redirecting to /");
+        console.log("No session found, redirecting to login page");
         return <Navigate to="/" replace />;
     }
 
