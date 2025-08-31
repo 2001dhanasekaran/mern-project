@@ -16,13 +16,18 @@ const ProtectedRoute = ({ children, requiredRole }) => {
 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log("User session data:",data);
-                    setUserRole(data.role);
+                    console.log("User session data:", data);
+                    if (data?.role) {
+                        setUserRole(data.role);
+                    } else {
+                        setUserRole(null);
+                    }
                 } else {
                     setUserRole(null);
                 }
             } catch (error) {
                 console.error("Error fetching user session:", error);
+                setUserRole(null);
             } finally {
                 setLoading(false);
             }
@@ -31,12 +36,16 @@ const ProtectedRoute = ({ children, requiredRole }) => {
     }, []);
 
     if (loading) return <h5>Loading...</h5>;
-    if (requiredRole && userRole !== requiredRole) {
-        console.log(`User role (${userRole}) does not match required role (${requiredRole}), redirecting`)
-        return <Navigate to="/unauthorized" replace />;
+
+    if (!userRole) {
+        console.log("No session found, redirecting to /");
+        return <Navigate to="/" replace />;
     }
 
-    if (!userRole) return <Navigate to="/login" replace />;
+    if (requiredRole && userRole !== requiredRole) {
+        console.log(`User role (${userRole}) does not match required role (${requiredRole}), redirecting`);
+        return <Navigate to="/unauthorized" replace />;
+    }
 
     return children;
 };
