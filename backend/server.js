@@ -11,9 +11,7 @@ dotenv.config();
 app.use(express.json());
 app.use(cors({
     credentials: true, 
-    origin: process.env.APPLICATION_UI,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization", "Cookie"]
+    origin: process.env.APPLICATION_UI
 }));
 app.use('/product_images',express.static('product_images'));
 app.set('trust proxy', 1);
