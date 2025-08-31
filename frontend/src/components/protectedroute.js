@@ -10,6 +10,7 @@ const ProtectedRoute = ({ children, requiredRole }) => {
             try {
                 console.log("Calling session API:", `${process.env.REACT_APP_BACKEND_URL}/api/user/session`);
                 const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/user/session`, {
+                    method: "GET",
                     credentials: "include",
                 });
 
