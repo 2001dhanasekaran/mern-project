@@ -13,25 +13,28 @@ app.use(cors({
     credentials: true, 
     origin: process.env.APPLICATION_UI,
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+    allowedHeaders: ["Content-Type", "Authorization", "Cookie"]
 }));
 app.use('/product_images',express.static('product_images'));
 app.set('trust proxy', 1);
 
 app.use(session({
-    secret:'yourSecretKey',
-    resave:false,
-    saveUninitialized:false,
+    secret: 'yourSecretKey',
+    resave: false,
+    saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGO_URL,
         collectionName: 'sessions',
         ttl: 86400
     }),
-    cookie:{
-        secure:true,
-        sameSite: 'none'
+    cookie: {
+        httpOnly: true,   
+        secure: true,
+        sameSite: "none",
+        maxAge: 24 * 60 * 60 * 1000 // 1 day
     }
 }));
+
 
 connectDB();
 
