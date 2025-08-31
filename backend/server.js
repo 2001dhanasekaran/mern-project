@@ -9,7 +9,12 @@ const MongoStore = require('connect-mongo');
 //Middleware
 dotenv.config();
 app.use(express.json());
-app.use(cors({credentials: true, origin: process.env.APPLICATION_UI}));
+app.use(cors({
+    credentials: true, 
+    origin: process.env.APPLICATION_UI,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
 app.use('/product_images',express.static('product_images'));
 app.set('trust proxy', 1);
 
