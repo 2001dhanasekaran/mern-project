@@ -35,6 +35,11 @@ app.use(session({
     }
 }));
 
+app.use((req, res, next) => {
+  console.log("Incoming request cookies:", req.headers.cookie);
+  console.log("Session data:", req.session);
+  next();
+});
 
 connectDB();
 
