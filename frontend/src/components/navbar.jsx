@@ -1,3 +1,4 @@
+import axios from 'axios';
 import logo from './imgs/logo.jpg';
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -8,8 +9,8 @@ export default function Navbar() {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/user/session`, {
-                    credentials: 'include'
+                const response = await axios.get(`/api/user/session`, {
+                    withCredentials: true
                 });
 
                 if (response.ok) {
@@ -25,12 +26,17 @@ export default function Navbar() {
     }, []);
 
     const handleLogout = async () => {
-        await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/user/logout`, {
-            method: 'POST',
-            credentials: 'include'
-        });
-        window.location.href = '/';
-    }
+        try {
+            await axios.post("/api/user/logout",
+                {},
+                { withCredentials: true }
+            );
+            window.location.href = "/login";
+        } catch (error) {
+            console.error("Logout Error:", error);
+            alert("There was a problem logging out. Please try again.");
+        }
+    };
 
     return (
         <div className="container-fluid mb-2">

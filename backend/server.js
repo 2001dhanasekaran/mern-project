@@ -1,48 +1,45 @@
-const express= require('express');
-const dotenv= require('dotenv');
-const connectDB=require('./config/db');
-const cors= require('cors');
-const app=express();
-const session= require('express-session');
-const MongoStore = require('connect-mongo');
+const express = require("express");
+const path = require("path");
+const dotenv = require("dotenv");
+const connectDB = require("./config/db");
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
 
-//Middleware
 dotenv.config();
-app.use(express.json());
-app.use(cors({
-    credentials: true, 
-    origin: process.env.APPLICATION_UI
-}));
-app.use('/product_images',express.static('product_images'));
-app.set('trust proxy', 1);
-
-app.use(session({
-    secret: 'yourSecretKey',
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URL,
-        collectionName: 'sessions',
-        ttl: 86400
-    }),
-    cookie: {
-        httpOnly: true,   
-        secure: true,
-        sameSite: "none",
-        maxAge: 24 * 60 * 60 * 1000 // 1 day
-    }
-}));
-
-app.use((req, res, next) => {
-  console.log("Incoming request cookies:", req.headers.cookie);
-  console.log("Session data:", req.session);
-  next();
-});
+const app = express();
 
 connectDB();
 
-app.use('/api/products',require('./routes/adminroutes'));
-app.use('/api/user',require('./routes/authroutes'));
+// Middleware
+app.use(express.json());
 
-const port= process.env.PORT || 5000;
-app.listen(port, ()=>console.log(`Server is running on port ${port}`));
+app.use(
+  session({
+    secret: "secretkey",
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URL,
+      collectionName: "sessions",
+    }),
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      maxAge: 24 * 60 * 60 * 1000,
+    },
+  })
+);
+
+app.use("/api/user", require("./routes/authroutes"));
+app.use("/api/products", require("./routes/adminroutes"));
+
+const __dirname1 = path.resolve();
+app.use(express.static(path.join(__dirname1, "frontend", "build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname1, "frontend", "build", "index.html"));
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

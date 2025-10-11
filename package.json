@@ -1,0 +1,8 @@
+{
+  "name": "shoppingcart",
+  "private": true,
+  "scripts": {
+    "start": "node backend/server.js",
+    "build": "cd frontend && npm install && npm run build"
+  }
+}

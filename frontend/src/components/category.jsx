@@ -12,7 +12,7 @@ export default function Category({ category }) {
     // Fetch Products from API
     useEffect(() => {
         if (!category) return;
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/products?category=${encodeURIComponent(category)}`)
+        axios.get(`/api/products?category=${encodeURIComponent(category)}`)
             .then(response => {
                 console.log("Fetched Products:", response.data);
                 const uniqueProducts = Array.from(new Map(response.data.map(product => [product._id, product])).values());

@@ -17,10 +17,9 @@ const Register=()=>{
         };
 
         try{
-            const response= await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/user/register`,{
-                method:'POST',
+            const response= await axios.post(`/api/user/register`,data,{
                 headers:{'Content-type':'application/json'},
-                body:JSON.stringify(data)
+                withCredentials: true,
             });
 
             if(response.ok){

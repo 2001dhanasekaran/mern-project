@@ -11,7 +11,7 @@ export default function Admin(){
     
     const fetchProducts= async()=>{
         try{
-            const response= await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/products`);
+            const response= await axios.get(`/api/products`);
             setProducts(response.data);
         }catch(error){
             setMessage({color:'danger',text:'Error fetching product'+error.message});
@@ -22,17 +22,23 @@ export default function Admin(){
     fetchProducts();
     },[]);
 
-    const handleLogout = async () => {
-        await fetch(`${process.env.REACT_APP_REACT_APP_BACKEND_URL}/api/user/logout`, {
-            method: 'POST',
-            credentials: 'include'
-        });
-        window.location.href = '/login';
+const handleLogout = async () => {
+    try {
+        await axios.post("/api/user/logout",
+            {},
+            { withCredentials: true }
+        );
+        window.location.href = "/login";
+    } catch (error) {
+        console.error("Logout Error:", error);
+        alert("There was a problem logging out. Please try again.");
     }
+};
+
 
     const onSave= async (id, updatedProduct)=>{
         try{
-            await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/products/update_product/${id}`, updatedProduct, {
+            await axios.put(`/api/products/update_product/${id}`, updatedProduct, {
                 headers: {'Content-Type': 'multipart/form-data'}
             });
             
@@ -46,7 +52,7 @@ export default function Admin(){
     const handleDelete= async(id)=>{
         if(window.confirm('Are you sure want to delete this product ?')){
             try{
-                await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/products/delete_product/${id}`);
+                await axios.delete(`/api/products/delete_product/${id}`);
                 setProducts(products.filter((product)=>product._id !==id));
                 fetchProducts();
             }catch(error){
