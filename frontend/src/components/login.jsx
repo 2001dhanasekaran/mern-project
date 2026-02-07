@@ -25,7 +25,7 @@ const Login = () => {
                 setMessage({ text: "Login successful", color: "success" });
                 setEmail("");
                 setPassword("");
-                navigate(responseData.role == "admin" ? "/admin" : "/home");
+                navigate(responseData.role === "admin" ? "/admin" : "/home");
             } else {
                 const errorData = await response.json();
                 setMessage({ text: `Error: ${errorData.message}`, color: "danger" });
