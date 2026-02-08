@@ -1,6 +1,7 @@
 import logo from './imgs/logo.jpg';
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Navbar() {
     const [userName, setUserName] = useState('');
@@ -8,27 +9,19 @@ export default function Navbar() {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/user/session`, {
-                    credentials: 'include'
+                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user/session`, {
+                    withCredentials: true
                 });
-
-                if (response.ok) {
-                    const data = await response.json();
-                    setUserName(data.userName);
-                }
+                setUserName(response.data.userName);
             } catch (error) {
                 console.error("Error fetching user session:", error);
             }
         };
-
         fetchUser();
     }, []);
 
     const handleLogout = async () => {
-        await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/user/logout`, {
-            method: 'POST',
-            credentials: 'include'
-        });
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/user/logout`, {}, { withCredentials: true });
         window.location.href = '/';
     }
 

@@ -23,10 +23,7 @@ export default function Admin(){
     },[]);
 
     const handleLogout = async () => {
-        await fetch(`${process.env.REACT_APP_REACT_APP_BACKEND_URL}/api/user/logout`, {
-            method: 'POST',
-            credentials: 'include'
-        });
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/user/logout`, {}, { withCredentials: true });
         window.location.href = '/login';
     }
 

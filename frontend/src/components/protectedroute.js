@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
@@ -9,13 +10,12 @@ const ProtectedRoute = ({ children, requiredRole }) => {
         const fetchUser = async () => {
             try {
                 console.log("Calling session API:", `${process.env.REACT_APP_BACKEND_URL}/api/user/session`);
-                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/user/session`, {
-                    method: "GET",
-                    credentials: "include",
+                const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user/session`, {
+                    withCredentials: true,
                 });
 
-                if (response.ok) {
-                    const data = await response.json();
+                if (response.status === 200) {
+                    const data = response.data;
                     console.log("User session data:", data);
                     if (data?.role) {
                         setUserRole(data.role);
